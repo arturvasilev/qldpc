@@ -1,0 +1,2 @@
+/home/osad/Рабочий стол/qkd/qldpc-toCmake/libLDPC/CMakeFiles/libLDPC.dir
+/home/osad/Рабочий стол/qkd/qldpc-toCmake/CMakeFiles/testLDPC.dir

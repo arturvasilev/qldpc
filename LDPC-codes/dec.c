@@ -21,7 +21,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
-#include <cmath>
+#include <math.h>
 
 #include "alloc.h"
 #include "mod2sparse.h"
@@ -368,7 +368,7 @@ void iterprp
     { e->pr = pr;
       pr *= e->lr;
     }
-    if (std::isnan(pr))
+    if (pr == NAN)
     { pr = 1;
     }
     if (bprb) bprb[j] = 1 - 1/(1+pr);
@@ -378,7 +378,7 @@ void iterprp
          !mod2sparse_at_end(e);
          e = mod2sparse_prev_in_col(e))
     { e->pr *= pr;
-      if (std::isnan(e->pr))
+      if (e->pr == NAN)
       { e->pr = 1;
       }
       pr *= e->lr;

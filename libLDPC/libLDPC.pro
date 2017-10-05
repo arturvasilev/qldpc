@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui\
+		widgets\
 
 TARGET = libLDPC
 TEMPLATE = lib

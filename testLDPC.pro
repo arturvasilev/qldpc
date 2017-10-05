@@ -1,4 +1,5 @@
-QT       += core gui\
+QT       += core\
+
 
 
 
@@ -6,12 +7,12 @@ TARGET = testLDPC
 
 TEMPLATE = app
 
-SOURCES += main.cpp\
-        ../libLDPC/libldpc.cpp\
-        ../LDPC-4Qt/ldpc4qt.cpp
+SOURCES += testLDPC.cpp\
+        libLDPC/libldpc.cpp\
+        LDPC-4Qt/ldpc4qt.cpp
 
-HEADERS  += ../libLDPC/libldpc.h\
-    ../LDPC-4Qt/ldpc4qt.h
+HEADERS  += libLDPC/libldpc.h\
+    LDPC-4Qt/ldpc4qt.h
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings

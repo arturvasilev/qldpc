@@ -1,6 +1,4 @@
-//#include <QCoreApplication>
-#include <QtWidgets/QApplication>
-#include "../libLDPC/libldpc.h"
+#include "libLDPC/libldpc.h"
 #include <iostream>
 #include <vector>
 
@@ -8,7 +6,6 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
     cout<<"kek"<<endl;
     vector<bool> check, ldpc, ans;
 
@@ -34,6 +31,6 @@ int main(int argc, char *argv[])
         cout<<ans.at(i)<<' ';
     }
     cout<<endl;
-    a.exec();
+
     return 0;
 }
