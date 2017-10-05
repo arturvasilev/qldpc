@@ -27,7 +27,3 @@ add_executable(testLDPC testLDPC.cpp libLDPC/libldpc.cpp LDPC-4Qt/ldpc4qt.cpp${S
 target_link_libraries(testLDPC Qt5::Core)
 
 target_link_libraries(testLDPC libLDPC)
-
-
-
-
