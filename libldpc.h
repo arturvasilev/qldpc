@@ -2,7 +2,7 @@
 #define LIBLDPC_H
 
 
-#include "../LDPC-4Qt/ldpc4qt.h"
+#include "LDPC-4Qt/ldpc4qt.h"
 #include <fstream>
 #include <QByteArray>
 #include <vector>
@@ -39,7 +39,8 @@ namespace LibLDPC
     std::vector<bool> Decoder(
         std::vector<bool> &vkey, 
         std::vector<bool> &ldpcCode,
-        const float _qber,
+        const double _qber,
         int seed);
 };
+
 #endif // LIBLDPC1_H

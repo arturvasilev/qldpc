@@ -3,7 +3,7 @@
 
 #include "libldpc.h"
 
-std::vector<bool> Encoder(std::vector<bool> &vkey, const double _qber, int seed)
+std::vector<bool> LibLDPC::Encoder(std::vector<bool> &vkey, const double _qber, int seed)
 {
     using namespace std;
     double r = 0;
@@ -47,10 +47,10 @@ std::vector<bool> Encoder(std::vector<bool> &vkey, const double _qber, int seed)
     return ldpcCode;
 }
 
-std::vector<bool> Decoder(
+std::vector<bool> LibLDPC::Decoder(
     std::vector<bool> &vkey,
     std::vector<bool> &ldpcCode,
-    const float _qber,
+    const double _qber,
     int seed)
 {
     using namespace std;
