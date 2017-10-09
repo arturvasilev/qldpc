@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
+set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_PREFIX_PATH /usr/lib64/cmake)
 SET(CMAKE_FIND_LIBRARY_PREFIXES "")
@@ -7,7 +8,7 @@ SET(CMAKE_FIND_LIBRARY_SUFFIXES .a ${CMAKE_FIND_LIBRARY_SUFFIXES})
 
 find_package(Qt5Core REQUIRED)
 
-project(testLDPC)
+project(libLDPC)
 
 set(SOURCES 
     libLDPC/libldpc.cpp

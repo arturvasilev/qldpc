@@ -3,14 +3,15 @@ cmake_minimum_required(VERSION 2.8)
 set(CMAKE_PREFIX_PATH /usr/lib64/cmake)
 SET(CMAKE_FIND_LIBRARY_PREFIXES "")
 SET(CMAKE_FIND_LIBRARY_SUFFIXES .a ${CMAKE_FIND_LIBRARY_SUFFIXES})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS}")
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt5Core REQUIRED)
 
 project(libLDPC)
 
-include_directories(include)
+include_directories("${Qt5Core_INCLUDE_DIRS}")
 
 add_library(libLDPC STATIC 
     libldpc.cpp
@@ -56,6 +57,7 @@ add_library(libLDPC STATIC
     ../LDPC-codes/transmit.c
     ../LDPC-codes/verify.c
     )
+
 qt5_use_modules(libLDPC Core)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")

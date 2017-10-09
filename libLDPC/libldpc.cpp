@@ -1,5 +1,7 @@
-#include "libldpc.h"
+#ifndef LIBLDPC_CPP
+#define LIBLDPC_CPP
 
+#include "libldpc.h"
 
 std::vector<bool> Encoder(std::vector<bool> &vkey, const double _qber, int seed)
 {
@@ -18,7 +20,7 @@ std::vector<bool> Encoder(std::vector<bool> &vkey, const double _qber, int seed)
     if(_qber > 0.1){ r = 0.30; }
     int s = int(vkey.size()/r)+1;
 
-    LDPCCode ldpccode(s-vkey.size(), s,seed,LDPCMakeLDPC::Evenboth,"5x2/4x3/1x7",true);
+    LDPCCode ldpccode(s - vkey.size(), s, seed, LDPCMakeLDPC::Evenboth, "5x2/4x3/1x7", true);
     //ldpccode.savetofile("matrix");
 
     LDPCEncode encode(ldpccode);
@@ -45,7 +47,11 @@ std::vector<bool> Encoder(std::vector<bool> &vkey, const double _qber, int seed)
     return ldpcCode;
 }
 
-std::vector<bool> Decoder(std::vector<bool> &vkey, std::vector<bool> &ldpcCode, const float _qber, QString filename, int seed)
+std::vector<bool> Decoder(
+    std::vector<bool> &vkey,
+    std::vector<bool> &ldpcCode,
+    const float _qber,
+    int seed)
 {
     using namespace std;
     //LDPCCode ldpccode(filename);
@@ -78,3 +84,4 @@ std::vector<bool> Decoder(std::vector<bool> &vkey, std::vector<bool> &ldpcCode, 
     return key;
 }
 
+#endif //! LIBLDPC_CPP
