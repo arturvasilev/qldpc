@@ -3,27 +3,33 @@
 
 #include "libldpc.h"
 
-std::vector<bool> LibLDPC::Encoder(std::vector<bool> &vkey, const double _qber, int seed)
+#include <vector>
+#include <iostream>
+
+std::vector<bool> LibLDPC::Encoder(
+    std::vector<bool> &vkey,
+    const double _qber,
+    int seed)
 {
     using namespace std;
     double r = 0;
-    if(_qber <= 0.01) r = 0.85;
-    if(_qber > 0.01 && _qber <= 0.02) r = 0.75;
-    if(_qber > 0.02 && _qber <= 0.03) r = 0.65;
-    if(_qber > 0.03 && _qber <= 0.04) r = 0.63;
-    if(_qber > 0.04 && _qber <= 0.05) r = 0.55;
-    if(_qber > 0.05 && _qber <= 0.06) r = 0.53;
-    if(_qber > 0.06 && _qber <= 0.07) r = 0.52;
-    if(_qber > 0.07 && _qber <= 0.08) r = 0.47;
-    if(_qber > 0.08 && _qber <= 0.09) r = 0.45;
-    if(_qber > 0.09 && _qber <= 0.1) r = 0.35;
-    if(_qber > 0.1){ r = 0.30; }
-    int s = int(vkey.size()/r)+1;
+    size_t sr;
+    
+    if(_qber <= 0.01)                 sr = 0;
+    if(_qber > 0.01 && _qber <= 0.02) sr = 1;
+    if(_qber > 0.02 && _qber <= 0.03) sr = 2;
+    if(_qber > 0.03 && _qber <= 0.04) sr = 3;
+    if(_qber > 0.04 && _qber <= 0.05) sr = 4;
+    if(_qber > 0.05 && _qber <= 0.06) sr = 5;
+    if(_qber > 0.06 && _qber <= 0.07) sr = 6;
+    if(_qber > 0.07 && _qber <= 0.08) sr = 7;
+    if(_qber > 0.08 && _qber <= 0.09) sr = 8;
+    if(_qber > 0.09 && _qber <= 0.1)  sr = 9;
+    if(_qber > 0.1)                   sr = 10;
 
-    LDPCCode ldpccode(s - vkey.size(), s, seed, LDPCMakeLDPC::Evenboth, "5x2/4x3/1x7", true);
-    //ldpccode.savetofile("matrix");
+    int s = int(vkey.size()/speeds[sr])+1;
 
-    LDPCEncode encode(ldpccode);
+    LDPCEncode encode(memory[sr]);
 
     QByteArray encodedKey, key;
     for(int i = 0; i < vkey.size(); i++)
@@ -40,7 +46,7 @@ std::vector<bool> LibLDPC::Encoder(std::vector<bool> &vkey, const double _qber, 
     Prprpinfo decodingmethodinfo;
     decodingmethodinfo.max_iterations=200;
 
-    LDPCDecode decode(ldpccode, channelinfo, decodingmethodinfo);
+    LDPCDecode decode(memory[sr], channelinfo, decodingmethodinfo);
 
     decode.extractLDPC(encodedKey, ldpcCode);
 
@@ -54,8 +60,6 @@ std::vector<bool> LibLDPC::Decoder(
     int seed)
 {
     using namespace std;
-    //LDPCCode ldpccode(filename);
-    LDPCCode ldpccode(ldpcCode.size(), ldpcCode.size() + vkey.size(),seed,LDPCMakeLDPC::Evenboth,"5x2/4x3/1x7",true);
 
     BSCinfo channelinfo;
     channelinfo.error_prob = _qber;
@@ -63,7 +67,21 @@ std::vector<bool> LibLDPC::Decoder(
     Prprpinfo decodingmethodinfo;
     decodingmethodinfo.max_iterations=200;
 
-    LDPCDecode decode(ldpccode, channelinfo, decodingmethodinfo);
+    size_t sr;
+    
+    if(_qber <= 0.01)                 sr = 0;
+    if(_qber > 0.01 && _qber <= 0.02) sr = 1;
+    if(_qber > 0.02 && _qber <= 0.03) sr = 2;
+    if(_qber > 0.03 && _qber <= 0.04) sr = 3;
+    if(_qber > 0.04 && _qber <= 0.05) sr = 4;
+    if(_qber > 0.05 && _qber <= 0.06) sr = 5;
+    if(_qber > 0.06 && _qber <= 0.07) sr = 6;
+    if(_qber > 0.07 && _qber <= 0.08) sr = 7;
+    if(_qber > 0.08 && _qber <= 0.09) sr = 8;
+    if(_qber > 0.09 && _qber <= 0.1)  sr = 9;
+    if(_qber > 0.1)                   sr = 10;
+
+    LDPCDecode decode(memory[sr], channelinfo, decodingmethodinfo);
 
     QVector<double> dKey;
     decode.includeLDPC(vkey, ldpcCode, dKey);
@@ -82,6 +100,27 @@ std::vector<bool> LibLDPC::Decoder(
     }
 
     return key;
+}
+
+void LibLDPC::init(int seed)
+{
+    if(!memory.empty()) return;
+
+    using namespace std;
+
+    cout << "Initialising LDPC..." << endl;
+    for(auto r : speeds)
+    {
+        cout << "\tSpeed " << r  << "..." << endl;
+        int s = int(constSize/r)+1;
+        memory.push_back(
+            LDPCCode(s - constSize,
+                s,
+                seed,
+                LDPCMakeLDPC::Evenboth,
+                "5x2/4x3/1x7",
+                true));
+    }
 }
 
 #endif //! LIBLDPC_CPP

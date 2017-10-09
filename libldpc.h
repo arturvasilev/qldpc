@@ -11,6 +11,13 @@
 
 namespace LibLDPC
 {
+    //!!! Размер ключа должен быть постоянным и быть равен 1000 (одной тысяче)
+    //!!! QBER не должен превышать 0.11
+    static std::vector<LDPCCode> memory;
+    static std::vector<double> speeds = {0.85, 0.75, 0.65, 0.63, 0.55, 0.53, 0.52, 0.47, 0.45, 0.35, 0.30};
+    static const uint constSize = 100000;
+    
+    void init(int seed);
 
     /*
      * @brief Возвращает LDPC-код для исправления ошибок на приёмной стороне
@@ -41,6 +48,9 @@ namespace LibLDPC
         std::vector<bool> &ldpcCode,
         const double _qber,
         int seed);
+
+    //! Диапазоны QBER
+    
 };
 
-#endif // LIBLDPC1_H
+#endif // LIBLDPC_H
