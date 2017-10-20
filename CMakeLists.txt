@@ -2,12 +2,14 @@ cmake_minimum_required(VERSION 2.8)
 
 project(libLDPC)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_PREFIX_PATH /usr/lib64/cmake)
-SET(CMAKE_FIND_LIBRARY_PREFIXES "")
-SET(CMAKE_FIND_LIBRARY_SUFFIXES .a ${CMAKE_FIND_LIBRARY_SUFFIXES})
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${Qt5Widgets_EXECUTABLE_COMPILE_FLAGS} -std=c++11")
+# set(CMAKE_AUTOMOC ON)
+# set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# set(CMAKE_PREFIX_PATH /usr/lib64/cmake)
+# SET(CMAKE_FIND_LIBRARY_PREFIXES "")
+# SET(CMAKE_FIND_LIBRARY_SUFFIXES .a ${CMAKE_FIND_LIBRARY_SUFFIXES})
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+add_definitions(-DQT_NO_DEBUG_OUTPUT)
+add_definitions(-DQT_NO_WARNING_OUTPUT)
 
 find_package(Qt5Core REQUIRED)
 
@@ -24,7 +26,7 @@ add_library(libLDPC STATIC
     LDPC-4Qt/ldpcqconversions.cpp
     LDPC-4Qt/ldpctransmitsimulation.cpp
     LDPC-4Qt/ldpcverify.cpp
-    LDPC-4Qt/test.cpp
+    # LDPC-4Qt/test.cpp
     LDPC-codes/alist-to-pchk.c
     LDPC-codes/alloc.c
     LDPC-codes/blockio.c
@@ -58,6 +60,6 @@ add_library(libLDPC STATIC
     LDPC-codes/verify.c
     )
 
-link_libraries(Qt5::Core)
+# link_libraries(Qt5::Core)
 
 qt5_use_modules(libLDPC Core)

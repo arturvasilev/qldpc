@@ -1,7 +1,6 @@
 #ifndef LIBLDPC_H
 #define LIBLDPC_H
 
-
 #include "LDPC-4Qt/ldpc4qt.h"
 #include <fstream>
 #include <QByteArray>
@@ -15,7 +14,7 @@ namespace LibLDPC
     //!!! QBER не должен превышать 0.11
     static std::vector<LDPCCode> memory;
     static std::vector<double> speeds = {0.85, 0.75, 0.65, 0.63, 0.55, 0.53, 0.52, 0.47, 0.45, 0.35, 0.30};
-    static const uint constSize = 100000;
+    static const uint constSize = 1000;
     
     void init(int seed);
 
