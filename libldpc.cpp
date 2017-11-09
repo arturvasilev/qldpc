@@ -108,10 +108,8 @@ void LibLDPC::init(int seed)
 
     using namespace std;
 
-    cout << "Initialising LDPC..." << endl;
     for(auto r : speeds)
     {
-        cout << "\tSpeed " << r  << "..." << endl;
         int s = int(constSize/r)+1;
         memory.push_back(
             LDPCCode(s - constSize,

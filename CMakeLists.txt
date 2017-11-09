@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(libLDPC)
+project(LDPC)
 
 # set(CMAKE_AUTOMOC ON)
 # set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -15,7 +15,7 @@ find_package(Qt5Core REQUIRED)
 
 include_directories(LDPC-4Qt LDPC-codes "${Qt5Core_INCLUDE_DIRS}")
 
-add_library(libLDPC STATIC 
+add_library(LDPC STATIC 
     libldpc.cpp
     LDPC-4Qt/ldpc4qt.cpp
     LDPC-4Qt/ldpccode.cpp
@@ -62,4 +62,4 @@ add_library(libLDPC STATIC
 
 # link_libraries(Qt5::Core)
 
-qt5_use_modules(libLDPC Core)
+qt5_use_modules(LDPC Core)
